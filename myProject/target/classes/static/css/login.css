@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body{
+    height: 100%;
+}
+.out_wrap{
+    width: 90%;
+    height: 90%;
+    border: cadetblue 10px solid;
+    margin: 30px auto;
+    position: relative;
+    border-radius: 20%;
+    box-shadow: 3px 3px 1px #dddddd;
+}
+.div_login{
+    width: 600px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 20%;
+    margin-left: -300px;
+    margin-top: -200px;
+}
+.tab_login{
+    margin: 160px auto 10px;
+    border-collapse: collapse;
+}
+.tab_login td{
+    height: 30px;
+    padding: 10px;
+}
+.tab_login td.td_text{
+    font: italic bold 21px/21px "隶书";
+    color: saddlebrown;
+    letter-spacing: 10px;
+}
+.tab_login input[name=username], .tab_login input[type=password]{
+    height: 30px;
+    background-color: azure;
+    border-bottom-style: wave;
+    border-radius: 3px;
+}
+.tab_login input[type=submit]{
+    background-color: aliceblue;
+    height: 30px;
+    width: 80px;
+    letter-spacing: 10px;
+    font-family: "隶书";
+    font-size: large;
+    font-style: oblique;
+    border-radius: 5%;
+}
+

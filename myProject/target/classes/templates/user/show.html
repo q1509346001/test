@@ -1,0 +1,235 @@
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <meta charset="UTF-8">
+        <title>用户信息展示页</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+        <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />-->
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+        <link th:href="@{/static/assets/dist/css/bootstrap.min.css}" rel="stylesheet">
+        <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+        <!-- style CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{/static/css/astyle.css}" media="all">
+        <!-- CSS Style -->
+<!--        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">-->
+        <!-- font-awesome & simple line icons CSS -->
+        <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../static/css/simple-line-icons.css" media="all">
+
+        <!-- owl.carousel CSS -->
+        <link rel="stylesheet" type="text/css" href="../static/css/owl.carousel.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/owl.theme.css">
+
+        <!-- animate CSS  -->
+        <link rel="stylesheet" type="text/css" href="../static/css/aanimate.css" media="all">
+
+        <!-- jquery-ui.min CSS  -->
+        <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.css">
+        <!-- style CSS -->
+        <link rel="stylesheet" type="text/css" href="../static/css/astyle.css" media="all">
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+            .demo td,th /*设置表格文字左右和上下居中对齐*/
+            {
+                text-align: center;
+                vertical-align: middle !important;
+                padding-left:80px;
+                padding-right:80px;
+                padding-bottom:15px;
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link th:href="@{/static/css/dashboard.css}" rel="stylesheet">
+    </head>
+    <body >
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" th:href="@{/goods/vi}">首页</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" th:href="@{/goods/vi}">登出</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" th:href="@{/user/showPage/1}">
+                                <span data-feather="home"></span>
+                                管理用户 <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/goods/showAll}">
+                                <span data-feather="file"></span>
+                                管理餐品
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/user/toaddUser}">
+                                <span data-feather="users"></span>
+                                增加用户
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/myPay/allPay/1}">
+                                <span data-feather="shopping-cart"></span>
+                                查看所有订单
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="container">
+                    <table class='demo'bgcolor="#f0f8ff">
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>电话</th>
+                            <th>性别</th>
+                            <th><a th:href="@{/user/toaddUser}"><button type="button" class="btn btn-danger">增加用户</button></a></th>
+                        </tr>
+                        <tr th:each="user, iter : ${pageInfo.getList()}" >
+                            <td th:text="${iter.count}" ></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.phone}"></td>
+                            <td th:text="${user.sex}"></td>
+                            <td>
+                                <div>
+                                    <a th:href="@{/myPay/showOne/{username}(username=${user.userName})}"><button type="button" class="btn btn-primary">详情</button></a>
+                                    <a th:href="@{/user/toupdate(id=${user.id})}"><button type="button" class="btn btn-success">修改</button></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="width: 35%; margin: 10px auto">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" th:href="@{/user/showPage/1}">首页</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPageNum() - 1}}">上一页</a>
+                            </li>
+                            <li class="page-item">
+                <span th:if="${pageInfo.getPageNum() ge pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPages()}}">下一页</a>
+                </span>
+                                <span th:if="${pageInfo.getPageNum() lt pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPageNum() + 1}}">下一页</a>
+                </span>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPages()}}">尾页</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+<!--    <div class="header-container">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-4 col-md-5 hidden-xs">
+
+                        <div class="welcome-msg ">欢迎光临! </div>
+                        <span class="phone hidden-sm"><a title="Go to Home Page" th:href="@{/goods/vi}">首页</a></span> </div>
+                    &lt;!&ndash;已登录&ndash;&gt;
+                    <div class="headerlinkmenu col-lg-8 col-md-7 col-sm-8 col-xs-12">
+                        <div class="links">
+                            <div class="myaccount">
+                                <span class="hidden-xs">
+										<a th:href="@{/goods/showAll}">管理餐品</a>
+									</span>
+                                <span class="hidden-xs">
+										<a th:href="@{/user/toaddUser}">增加用户</a>
+									</span>
+                            </div>
+                            <div class="login">
+                                <a th:href="@{/myPay/allPay/1}">
+                                    <span class="hidden-xs">查看所有订单</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="container">
+            <table class="table table-condensed">
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>电话</th>
+                    <th>性别</th>
+                </tr>
+                <tr th:each="user, iter : ${pageInfo.getList()}" >
+                    <td th:text="${iter.count}" ></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.phone}"></td>
+                    <td th:text="${user.sex}"></td>
+                    &lt;!&ndash;<td th:text="${user.birthday}"></td>&ndash;&gt;
+                    <td>
+                        <div style="text-align: right">
+                        <a th:href="@{/myPay/showOne/{username}(username=${user.userName})}"><button type="button" class="btn btn-primary">详情</button></a>
+                        <a th:href="@{/user/toupdate(id=${user.id})}"><button type="button" class="btn btn-success">修改</button></a>
+                        &lt;!&ndash;<a th:href="@{/user/deleteUser(id=${user.id})}"><button type="button" class="btn btn-warning">删去</button></a>&ndash;&gt;
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="width: 35%; margin: 10px auto">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/user/showPage/1}">首页</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPageNum() - 1}}">上一页</a>
+                    </li>
+                    <li class="page-item">
+                <span th:if="${pageInfo.getPageNum() ge pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPages()}}">下一页</a>
+                </span>
+                        <span th:if="${pageInfo.getPageNum() lt pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPageNum() + 1}}">下一页</a>
+                </span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/user/showPage/' + ${pageInfo.getPages()}}">尾页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+<script th:src="@{/static/js/dashboard.js}"></script>
+</body>
+</html>

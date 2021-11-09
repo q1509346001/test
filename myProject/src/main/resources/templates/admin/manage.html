@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>管理用户、菜品页面</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}" />
+    <style>
+        .bg {
+            background: url([[@{/}]]static/images/bg/2.png) no-repeat center fixed;
+            background-size: contain;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+
+    </style>
+</head>
+<body class="bg">
+<div align="center" colspan="30px">
+    <a th:href="@{/user/show}"><button type="button" class="btn btn-primary btn-lg active">管理用户</button></a>
+    <a th:href=""><button type="button" class="btn btn-warning btn-lg active">管理菜品</button></a>
+</div>
+</body>
+</html>

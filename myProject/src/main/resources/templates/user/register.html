@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+
+    <link th:href="@{/static/assets/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}" />
+
+    <style>
+        .bg {
+            background: url([[@{/}]]static/images/about_05.jpg) no-repeat center fixed;
+            background-size: contain;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+        .outer-wrap {
+            /*只有同时为html和body设置height: 100%时，这里的height才生效，
+                    并且随浏览器窗口变化始终保持和浏览器视窗等高*/
+            height: 100%;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .login-panel {
+            border-radius:3.5%;
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255,255,255, 0.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+        }
+        #tab{
+            margin-top: 80px;
+            margin-left: 30px;
+            font: bolder 18px/18px "Eras Bold ITC";
+            color: coral;
+        }
+        .d{padding:0 8px; line-height:22px; font-size:12px; color:#000000; clear:both; margin-top:-12px; cursor:pointer;}
+        #butt{
+            font-size: 150%;
+            color: ghostwhite;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/static/css/signin.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+
+<form class="form-signin" th:action="@{/user/register}" method="post">
+    <img class="mb-4" th:src="@{/static/favicon.ico}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">注册</h1>
+    <label for="inputEmail" class="sr-only">用户名</label>
+    <input id="inputEmail" class="form-control" name="username" placeholder="用户名" required autofocus>
+    <label for="inputPassword" class="sr-only">密码</label>
+    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="密码" required>
+    <label for="inputEmail" class="sr-only">昵称</label>
+    <input class="form-control" name="name" placeholder="昵称" required autofocus>
+    <label for="inputEmail" class="sr-only">电话</label>
+    <input class="form-control" name="phone" placeholder="电话" required autofocus>
+    <label for="inputEmail" class="sr-only">性别</label>
+    <input class="form-control" name="sex" placeholder="性别" required autofocus>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 山西特色美食店</p>
+</form>
+<!--<div class="outer-wrap">
+    <div class="login-panel">
+            <form th:action="@{/user/register}">
+                <table id="tab" class="table table-borderless">
+                    <tr>
+                        <td class="td_text">姓名</td>
+                        <td>
+                            <input name="name" placeholder="例：张三" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_text">用户名</td>
+                        <td>
+                            <input name="username" placeholder="例：123456789" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_text">密码</td>
+                        <td>
+                            <input type="password" name="password" required minlength="4" maxlength="15" placeholder="******" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_text">电话</td>
+                        <td>
+                            <input  name="phone" placeholder="例：12345678912" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_text">性别</td>
+                        <td>
+                            <input  name="sex" placeholder="例：男/女" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="d"><input id="butt" class="button btn-success" style="width:50px;height:25px" type="submit" value="注册" /></div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>-->
+</body>
+</html>

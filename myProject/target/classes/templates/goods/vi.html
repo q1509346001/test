@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8">
+	<title>餐品列表页</title>
+	<script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+	<!-- Favicon  -->
+	<link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/animate.css">
+
+	<!-- style CSS -->
+	<link rel="stylesheet" type="text/css"  th:href="@{/static/css/astyle.css}" media="all">
+
+
+</head>
+<body>
+<header>
+<div th:if = "${session.username} ne null">
+	<div class="header-container">
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-sm-4 col-md-5 hidden-xs">
+						<!-- Default Welcome Message -->
+						<div class="welcome-msg ">欢迎光临! </div>
+						<span class="phone hidden-sm">地址: XXX</span> </div>
+
+					<!-- 已登录 -->
+						<div class="headerlinkmenu col-lg-8 col-md-7 col-sm-8 col-xs-12">
+							<div class="links">
+								<div class="myaccount">
+									<i class="fa fa-user"></i>
+									<span class="hidden-xs">
+										<a th:href="@{/goods/showPage/1}">
+											欢迎您![[${session.username}]]
+										</a>
+									</span>
+									<span class="hidden-xs">
+										<i class="fa fa-user"></i>
+										&nbsp&nbsp<a th:href="@{/user/logout}">注销</a>
+									</span>
+								</div>
+								<div class="login">
+									<a th:href="@{/admin/tologin}" >
+										<i class="fa fa-unlock-alt"></i>
+										<span class="hidden-xs">管理员登录</span>
+									</a>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<div th:if = "${session.username} eq null">
+		<div class="header-container">
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4 col-sm-4 col-md-5 hidden-xs">
+							<!-- Default Welcome Message -->
+							<div class="welcome-msg ">欢迎光临! </div>
+							<span class="phone hidden-sm">地址：XXX</span> </div>
+						<!--未登录-->
+						<div class="headerlinkmenu col-lg-8 col-md-7 col-sm-8 col-xs-12">
+							<div class="links">
+								<div class="myaccount">
+									<a th:href="@{/user/tologin}">
+										<i class="fa fa-user"></i>
+										<span class="hidden-xs">
+											登录&nbsp&nbsp
+										</span>
+									</a>
+								</div>
+								<div class="login">
+									<a th:href="@{/admin/tologin}" >
+										<i class="fa fa-unlock-alt"></i>
+										<span class="hidden-xs">管理员登录</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="banner wow animated fadeInLeft"></div>
+<div class="pagetit">特色菜展示</div>
+<div th:if = "${session.username} ne null">
+	<div class="main">
+		<div class="w1200 prelat">
+			<div class="vitit wow animated fadeInDown"><img src="../images/vi_tit.png" alt=""></div>
+			<div class="mainlist wow animated fadeInLeft">
+				<ul>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/1.png" alt="">
+						<p>饸烙面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/2.png" alt="">
+						<p>西红柿鸡蛋炒面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/3.png" alt="">
+						<p>剪刀面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/4.png" alt="">
+						<p>哨子面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/5.png" alt="">
+						<p>浆水面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/6.png" alt="">
+						<p>牛肉丸子面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/7.png" alt="">
+						<p>鸡块面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/8.png" alt="">
+						<p>刀削面</p></a></li>
+					<li><a th:href="@{/goods/showPage/1}"><img src="../static/upImg/9.png" alt="">
+						<p>羊肉泡馍</p></a></li>
+				</ul>
+				<!--<div class="fenye1"><a href="">上一页</a>1/12<a href="">下一页</a></div>-->
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div th:if = "${session.username} eq null">
+	<div class="main">
+		<div class="w1200 prelat">
+			<div class="vitit wow animated fadeInDown"><img src="../images/vi_tit.png" alt=""></div>
+			<div class="mainlist wow animated fadeInLeft">
+				<ul>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/1.png" alt="">
+						<p>饸烙面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/2.png" alt="">
+						<p>西红柿鸡蛋炒面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/3.png" alt="">
+						<p>剪刀面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/4.png" alt="">
+						<p>哨子面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/5.png" alt="">
+						<p>浆水面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/6.png" alt="">
+						<p>牛肉丸子面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/7.png" alt="">
+						<p>鸡块面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/8.png" alt="">
+						<p>刀削面</p></a></li>
+					<li><a href="/web-dev/user/login"><img src="../static/upImg/9.png" alt="">
+						<p>羊肉泡馍</p></a></li>
+				</ul>
+				<!--<div class="fenye1"><a href="">上一页</a>1/12<a href="">下一页</a></div>-->
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+	<div class="footer">
+</div>
+</div>
+<script type="text/javascript" th:src="@{/static/js/ltk.js}"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /web1
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Chongqing
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: html
+    prefix: classpath:/templates/
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myspringboot?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Chongqing
+    username: root
+    password: 123456
+
+mybatis:
+  type-aliases-package: com.no1.cz.pojo
+  mapper-locations: classpath:mybatis/**/*.xml
+
+logging:
+  config: classpath:logback-my.xml
+  level:
+    com.no1.cz: debug
+    org.springframework: info
+
+---
+spring:
+  profiles: dev
+
+server:
+  port: 10001
+  servlet:
+    context-path: /web-dev
+
+#logging:
+#  config: classpath:log4j2-dev.xml
+
+---
+spring:
+  profiles: test
+
+server:
+  port: 10002
+  servlet:
+    context-path: /web-test
+
+#logging:
+#  config: classpath:log4j2-test.xml
+
+---
+spring:
+  profiles: prod
+
+server:
+  port: 10003
+  servlet:
+    context-path: /web-prod
+
+#logging:
+#  config: classpath:log4j2-prod.xml

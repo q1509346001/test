@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>支付页面</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}" />
+    <link rel="stylesheet" type="text/css"  th:href="@{/static/css/layui.css}" media="all">
+    <style>
+        .bg {
+            background: url([[@{/}]]static/images/about_05.jpg);
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+        .outer-wrap {
+            /*只有同时为html和body设置height: 100%时，这里的height才生效，
+                    并且随浏览器窗口变化始终保持和浏览器视窗等高*/
+            height: 100%;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .login-panel {
+            border-radius:3.5%;
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255,255,255, 0.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+        }
+        #tab{
+            margin-top: 80px;
+            margin-left: 30px;
+            font: bolder 18px/18px "Eras Bold ITC";
+            color: coral;
+        }
+        .d{padding:0 8px; line-height:22px; font-size:12px; color:#000000; clear:both; margin-top:-12px; cursor:pointer;}
+        #butt{
+            font-size: 150%;
+            color: ghostwhite;
+        }
+    </style>
+</head>
+<body class="bg">
+<div class="outer-wrap">
+    <div class="login-panel">
+        <form th:action="@{/myPay/pay}" method="post">
+            <table id="tab" class="table table-borderless">
+                <tr>
+                    <input name="goodsId" th:value="${goodsId}" type="hidden"/>
+                    <td class="td_text">订餐编号：</td>
+                    <td>
+                        <input type="text" name="tradeNo" th:value="${tradeNo}" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text">付款金额：</td>
+                    <td>
+                        <input type="text" name="amount" th:value="${totalPrice}" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text">订餐名称：</td>
+                    <td>
+                        <input type="text" name="name" th:value="${name}" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text">餐品描述：</td>
+                    <td>
+                        <input type="text" name="desc" th:value="${desc}" /><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="d"><input class="layui-btn"  type="submit" value="下单" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!--<form th:action="@{/myPay/pay}" method="post">
+    订餐编号：<input type="text" name="tradeNo" th:value="${tradeNo}" required /><br />
+    付款金额：<input type="text" name="amount" th:value="${totalPrice}" required /><br />
+    订餐名称：<input type="text" name="name" th:value="${name}" required /><br />
+    餐品描述：<input type="text" name="desc" th:value="${desc}" /><br />
+    <input type="submit" value="下单" />
+</form>-->
+</body>
+</html>

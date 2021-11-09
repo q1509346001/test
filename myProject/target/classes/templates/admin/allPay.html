@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>查看所有订单</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+    <link th:href="@{/static/assets/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <!-- style CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/astyle.css}" media="all">
+    <style>
+        .bg {
+            background: url([[@{/}]]static/images/bg/5.png) no-repeat center fixed;
+            background-size: contain;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+
+    </style>
+    <link th:href="@{/static/css/dashboard.css}" rel="stylesheet">
+</head>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" th:href="@{/goods/vi}">首页</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/goods/vi}">登出</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/user/showPage/1}">
+                            <span data-feather="home"></span>
+                            管理用户 <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/goods/showAll}">
+                            <span data-feather="file"></span>
+                            管理餐品
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/user/toaddUser}">
+                            <span data-feather="users"></span>
+                            增加用户
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/myPay/allPay/1}">
+                            <span data-feather="shopping-cart"></span>
+                            查看所有订单
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="container">
+                <table class="table table-condensed" bgcolor="#f0f8ff">
+                    <tr>
+                        <th>序号</th>
+                        <th>用户名</th>
+                        <th>订单编号</th>
+                        <th>付款金额</th>
+                        <th>餐品名称</th>
+                        <th>餐品描述</th>
+                        <th>订单时间</th>
+                    </tr>
+                    <tr th:each="pay,iter : ${pageInfo.getList()}" >
+                        <td th:text="${iter.count}" ></td>
+                        <td th:text="${pay.userName}"></td>
+                        <td th:text="${pay.tradeNo}"></td>
+                        <td th:text="${pay.amount}"></td>
+                        <td th:text="${pay.payName}"></td>
+                        <td th:text="${pay.payDesc}"></td>
+                        <td th:text="${pay.payDate}"></td>
+                    </tr>
+                </table>
+                <div style="width: 35%; margin: 10px auto">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/myPay/allPay/1}">首页</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPageNum() - 1}}">上一页</a>
+                    </li>
+                    <li class="page-item">
+                <span th:if="${pageInfo.getPageNum() ge pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPages()}}">下一页</a>
+                </span>
+                        <span th:if="${pageInfo.getPageNum() lt pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPageNum() + 1}}">下一页</a>
+                </span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPages()}}">尾页</a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </main>
+    </div>
+</div>
+<!--<div class="container">
+    <table class="table table-condensed">
+        <tr>
+            <th>序号</th>
+            <th>用户名</th>
+            <th>订单编号</th>
+            <th>付款金额</th>
+            <th>餐品名称</th>
+            <th>餐品描述</th>
+            <th>订单时间</th>
+        </tr>
+        <tr th:each="pay,iter : ${pageInfo.getList()}" >
+            <td th:text="${iter.count}" ></td>
+            <td th:text="${pay.userName}"></td>
+            <td th:text="${pay.tradeNo}"></td>
+            <td th:text="${pay.amount}"></td>
+            <td th:text="${pay.payName}"></td>
+            <td th:text="${pay.payDesc}"></td>
+            <td th:text="${pay.payDate}"></td>
+        </tr>
+    </table>
+    <div style="width: 35%; margin: 10px auto">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/myPay/allPay/1}">首页</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPageNum() - 1}}">上一页</a>
+            </li>
+            <li class="page-item">
+                <span th:if="${pageInfo.getPageNum() ge pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPages()}}">下一页</a>
+                </span>
+                <span th:if="${pageInfo.getPageNum() lt pageInfo.getPages()}">
+                    <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPageNum() + 1}}">下一页</a>
+                </span>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/myPay/allPay/' + ${pageInfo.getPages()}}">尾页</a>
+            </li>
+        </ul>
+    </div>
+</div>-->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+<script th:src="@{/static/js/dashboard.js}"></script>
+</body>
+</html>

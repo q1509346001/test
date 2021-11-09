@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>用户订单展示页</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <!-- style CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/astyle.css}" media="all">
+    <style>
+        .bg {
+            background: url([[@{/}]]static/images/bg/5.png) no-repeat center fixed;
+            background-size: contain;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+
+    </style>
+</head>
+<body class="bg">
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" th:href="@{/user/showPage/1}">返回</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<p th:text="${user.name}"></p>
+<p th:text="${user.age}"></p>
+<p th:text="${user.birthday}"></p>-->
+<div class="container">
+    <table class="table table-condensed">
+        <tr>
+            <th>序号</th>
+            <th>用户名</th>
+            <th>订单编号</th>
+            <th>付款金额</th>
+            <th>餐品名称</th>
+            <th>餐品描述</th>
+            <th>订单时间</th>
+        </tr>
+        <tr th:each="pay,iter : ${myPayList}" >
+            <td th:text="${iter.count}" ></td>
+            <td th:text="${pay.userName}"></td>
+            <td th:text="${pay.tradeNo}"></td>
+            <td th:text="${pay.amount}"></td>
+            <td th:text="${pay.payName}"></td>
+            <td th:text="${pay.payDesc}"></td>
+            <td th:text="${pay.payDate}"></td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

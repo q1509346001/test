@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${goods.goodsName}"></title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<!--    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />-->
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <!-- style CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/astyle.css}" media="all">
+    <meta name="description" content="">
+
+    <!-- Mobile specific metas  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+
+    <!-- font-awesome & simple line icons CSS -->
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.css}" media="all">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/simple-line-icons.css}" media="all">
+
+    <!-- owl.carousel CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/owl.theme.css}">
+
+    <!-- flexslider CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/flexslider.css}" >
+
+    <!-- animate CSS  -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/aanimate.css}" media="all">
+
+    <!-- jquery-ui.min CSS  -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/jquery-ui.css}">
+    <!-- Revolution Slider CSS -->
+    <link th:href="@{/static/css/revolution-slider.css}" rel="stylesheet">
+    <style type="text/css">
+        dd{
+            margin-left: 200px;
+            margin-top: 30px;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        th, td{
+            height: 60px;
+        }
+        .bg {
+            background: url([[@{/}]]static/imgs/regist.jpg) no-repeat center fixed;
+            background-size: contain;
+        }
+        .aligncenter {
+            clear: both;
+            display: block;
+            margin-left: 180px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" th:href="@{/goods/showPage/1}">返回</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="main-container col1-layout">
+    <div class="container">
+        <div class="row">
+            <div class="col-main">
+                <div class="product-view-area">
+                    <div class="product-big-image col-xs-12 col-sm-5 col-lg-5 col-md-5">
+                        <div class="icon-sale-label sale-left">Sale</div>
+                        <div class="large-image">
+                            <img class="zoom-img" th:src="@{'/static/upImg/'+${goods.goodsImg}}" alt="products">
+                        </div>
+
+
+                        <!-- end: more-images -->
+
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-lg-7 col-md-7 product-details-area">
+                        <div class="product-name">
+                            <h1>[[${goods.goodsName}]]</h1>
+                        </div>
+                        <div class="price-box">
+                            <p class="special-price"> <span class="price-label">Special Price</span> <span id="unitPrice" class="price" th:text="|${goods.goodsPrice}元|"></span></p>
+                        </div>
+<!--                        <div class="ratings">
+                            <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Your Review</a> </p>
+                            <p class="availability in-stock pull-right">Availability: <span>In Stock</span></p>
+                        </div>-->
+                        <!-- 餐品说明-->
+                        <div class="short-description">
+                            <h2>山西美食</h2>
+                            <p>山西人历来“专力农耕”，人民群众的饮食以粮为主，粮食的种类与制作是区别各地人民群众日常生活特点的重要标志。
+                            <p> 民以食为天，山西人喜食杂粮，干饭稀饭结合，主粮杂粮调剂，花样多，南北风味各异。晋北地区寒冷，喜食含热量较高的莜面、山药蛋、玉米等，副食佐以萝卜、豆腐及腌菜。忻州晋中大部分地区则以高粱、玉米为主食，腌制咸菜、酸菜佐餐。晋南大部分地区喜食饼子、干馍，晋东南人则对小米饭有着浓厚的兴趣。</p>
+
+                        </div>
+                        <script>
+                            $(function(){
+                                $("#payBtn").click(function(){
+                                    $("#payInfo").toggle(function(){});
+                                });
+                                $("#payMoney").change(function (){
+                                    let selectQuantity = $(this).val();
+                                    console.log("选择的数量是：" + selectQuantity);
+                                    let unitPrice = $("#unitPrice").html();
+                                    console.log("单价是：" + unitPrice);
+                                    let totalPrice = parseInt(selectQuantity) *
+                                        parseInt(unitPrice);
+                                    console.log()
+                                    $("#showMoney").html(selectQuantity);
+                                    $("#totalPrice").val(totalPrice);
+                                });
+                            })
+                        </script>
+                        <div class="product-variation">
+                            <form th:action="@{/goods/pay}" method="post">
+                                <input type="hidden" name="name" th:value="${goods.goodsName}" />
+                                <input type="hidden" name="goodsId" th:value="${goods.goodsId}" />
+                                <div class="cart-plus-minus">
+                                    <!--<label for="qty">购买数量:</label>-->
+                                    <div class="numbers-row">
+                                        购买数量：<input id="payMoney" type="number" min="1" value="0"/>
+                                        <!--<div onClick="var result = document.getElementById('payMoney'); var payMoney = result.value; if( !isNaN( payMoney ) &amp;&amp; payMoney &gt; 0 ) result.value&#45;&#45;;return false;" class="dec qtybutton"><i class="glyphicon glyphicon-minus" style="font-size: 25px">&nbsp;</i></div>
+                                        <input  type="text" class="payMoney" title="Qty" value="1" maxlength="12" id="payMoney" name="payMoney" min="1">
+                                        <div onClick="var result = document.getElementById('payMoney'); var payMoney = result.value; if( !isNaN( payMoney )) result.value++;return false;" class="inc qtybutton"><i class="glyphicon glyphicon-plus" style="font-size: 25px">&nbsp;</i></div>-->
+                                    </div>
+                                </div>
+                                <div>
+                                    总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：<input id="totalPrice" class="text" style="width: 30px;background-color:transparent;border:0;" name="totalPrice" />元
+                                </div><br/>
+                                <div align="left">
+                                    餐品需求：<input type="text" name="desc" placeholder="口味和用餐时间"/>
+                                </div>
+                                <button type="submit" class="button pro-add-to-cart" title="Add to Cart"><span><i class="fa fa-shopping-cart"></i> 点击购买</span></button>
+                                <!--<input class="availability in-stock pull-right" type="submit" value="点击购买" />-->
+                                <!--<button class="button pro-add-to-cart" title="Add to Cart" type="button"><span><i class="fa fa-shopping-cart"></i> 点击购买</span></button>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--<div class="container">
+    <div style="height: 120px">
+    </div>
+    <dl style="margin-left: 200px">
+        <dt>
+                    <img th:src="@{'/static/upImg/'+${goods.goodsImg}}" height="200" width="200" class="aligncenter"/>
+        </dt>
+        <dd th:text="'餐品名称：' + ${goods.goodsName}"></dd>
+        <dd text="'餐品价格：'"><span id="unitPrice" th:text="${goods.goodsPrice}"></span></dd>
+        &lt;!&ndash;<span id="unitPrice"><dd th:text="'餐品价格：' + ${goods.goodsPrice}"></dd></span>&ndash;&gt;
+        &lt;!&ndash;<dd th:text="'剩余数量：' + ${goods.goodsNum}"></dd>&ndash;&gt;
+        <dd>
+            <button id="payBtn" class="btn btn-primary">选择餐品规格</button>
+        </dd>
+    </dl>
+    <script>
+        $(function(){
+            $("#payBtn").click(function(){
+                $("#payInfo").toggle(function(){});
+            });
+            $("#payMoney").change(function (){
+                let selectQuantity = $(this).val();
+                console.log("选择的数量是：" + selectQuantity);
+                let unitPrice = $("#unitPrice").html();
+                console.log("单价是：" + unitPrice);
+                let totalPrice = parseInt(selectQuantity) *
+                    parseInt(unitPrice);
+                console.log()
+                $("#showMoney").html(selectQuantity);
+                $("#totalPrice").val(totalPrice);
+            });
+        })
+    </script>
+    <div id="payInfo" style="display: none; width:50%; margin: 50px 0 0 200px; padding-left: 100px;">
+        <form th:action="@{/goods/pay}" method="post">
+            <input type="hidden" name="name" th:value="${goods.goodsName}" />
+            <table>
+                <tr>
+                    <th>购买数量:</th>
+                    <td>
+                        <input id="payMoney" type="number" min="1" value="0"/>
+                        <span style="margin-left: 16px; font: bolder 20px/40px Serif;" id="showMoney" ></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>总价：</th>
+                    <td>
+                        <input id="totalPrice" class="text" style="width: 30px" name="totalPrice"  />元
+                    </td>
+                </tr>
+                <tr>
+                    <th>餐品需求：</th>
+                    <td>
+                        <input id="desc" type="text" name="desc"/>口味和用餐时间
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input class="btn btn-outline-info" type="submit" value="点击购买" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>-->
+</body>
+</html>

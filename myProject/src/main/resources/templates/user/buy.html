@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>用户修改页</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <style>
+        .bg {
+            background: url([[@{/}]]static/images/bg/2.png) no-repeat center fixed;
+            background-size: contain;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+
+    </style>
+</head>
+<body class="bg">
+<!--<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>您已登录成功!</strong> 请点击进行点餐或者修改信息
+</div>-->
+
+<div >
+    <!--<ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="active"><a th:href="@{/goods/showPage/1}">进行点餐</a></li>
+        <li role="presentation"><a th:href="@{/user/touUpdate(id=${user.id})}">修改信息</a></li>
+        <li role="presentation"><a th:href="@{/myPay/showPay/{username}(username=${session.user.userName})}">查看订单</a></li>
+    </ul>-->
+    <div align="center" colspan="30px">
+        <a th:href="@{/goods/showPage/1}"><button type="button" class="btn btn-primary btn-lg active">进行点餐</button></a>
+        <a th:href="@{/user/touUpdate(id=${user.id})}"><button type="button" class="btn btn-warning btn-lg active">修改信息</button></a>
+        <a th:href="@{/myPay/showPay/{username}(username=${session.user.userName})}"><button type="button" class="btn btn-success btn-lg active">查看订单</button></a>
+
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>餐品修改页</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <style>
+        .bg {
+            background: url([[@{/}]]static/imgs/regist.jpg) no-repeat center fixed;
+            background-size: contain;
+        }
+        * {
+            margin: 0;
+            padding: 0
+        }
+        html, body {
+            height: 100%
+        }
+        .outer-wrap {
+            /*只有同时为html和body设置height: 100%时，这里的height才生效，
+                    并且随浏览器窗口变化始终保持和浏览器视窗等高*/
+            height: 100%;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .login-panel {
+            border-radius:3.5%;
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255,255,255, 0.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+        }
+        #tab{
+            margin-top: 60px;
+            margin-left: 30px;
+            font: bolder 18px/18px "Eras Bold ITC";
+            color: coral;
+        }
+
+    </style>
+
+</head>
+<body class="bg">
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" th:href="@{/goods/showAll}">返回</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="outer-wrap">
+    <div class="login-panel">
+        <form th:action="@{/goods/updateGoods}">
+            <table id="tab" class="table table-borderless">
+                        <input name="goodsId"  th:value="${goods.goodsId}" type="hidden"/>
+                <tr>
+                    <td class="td_text">餐品名称</td>
+                    <td>
+                        <input name="goodsName"  th:value="${goods.goodsName}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_text">餐品价格</td>
+                    <td>
+                        <input name="goodsPrice"  th:value="${goods.goodsPrice}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="btn btn-primary" type="submit" value="修改" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>餐品列表页</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+    <link th:href="@{/static/assets/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Favicon  -->
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/static/css/layui.css}">
+    <!-- style CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/astyle.css" media="all">
+    <style>
+        .bg {
+            background: url([[@{/}]]static/imgs/foodbg.jpg) no-repeat center fixed;
+            background-size: contain;
+        }
+        .file-box{
+            display: inline-block;
+            position: relative;
+            padding: 3px 5px;
+            overflow: hidden;
+        }
+        .file-btn {
+            position: relative;
+            width: 60%;
+            height: 60%;
+        }
+        .demo td,th /*设置表格文字左右和上下居中对齐*/
+        {
+            text-align: center;
+            vertical-align: middle !important;
+            padding-left:50px;
+            padding-right:50px;
+            padding-bottom:15px;
+        }
+    </style>
+    <link th:href="@{/static/css/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" th:href="@{/goods/vi}">首页</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/goods/vi}">登出</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/goods/showAll}">
+                            <span data-feather="file"></span>
+                            管理餐品 <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/user/showPage/1}">
+                            <span data-feather="home"></span>
+                            管理用户
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/goods/toaddGoods}">
+                            <span data-feather="users"></span>
+                            增加餐品
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/myPay/allPay/1}">
+                            <span data-feather="shopping-cart"></span>
+                            查看所有订单
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="container">
+            <table class='demo' bgcolor="#f0f8ff">
+                <tr>
+                    <th>序号</th>
+                    <th>餐品图片</th>
+                    <th>餐品名称</th>
+                    <th>餐品价格</th>
+                    <th><a th:href="@{/goods/toaddGoods}"><button type="button" class="btn btn-danger">增加餐品</button></a></th>
+                </tr>
+                <tr th:each="goods, status : ${goodsList}">
+                    <td th:text="${status.count}"></td>
+                    <td>
+                    <span th:if="${goods.goodsImg eq null or goods.goodsImg eq ''}">
+                        <img th:src="@{/static/upImg/wsc.jpg}" />
+                    </span>
+                        <span th:unless="${goods.goodsImg eq null}">
+                        <img width="100px" height="100px" th:src="@{'/static/upImg/' + ${goods.goodsImg}}" />
+                    </span>
+                    </td>
+                    <td th:text="${goods.goodsName}"></td>
+                    <td th:text="|${goods.goodsPrice}元|"></td>
+                    <td>
+                        <div>
+                            <a th:href="@{/goods/toupdateGoods(goodsId=${goods.goodsId})}"><button type="button" class="btn btn-success">修改</button></a>
+                            <span th:if="${goods.goodsNum eq 1}">
+                        <a th:href="@{/goods/emptyGoods(goodsId=${goods.goodsId})}"><button type="button" class="btn btn-warning">售空</button></a>
+                    </span>
+                            <span th:if="${goods.goodsNum eq 0}">
+                        <a th:href="@{/goods/recoverGoods(goodsId=${goods.goodsId})}"><button type="button" class="btn btn-primary">恢复</button></a>
+                    </span></br>
+
+                            <form th:action="@{/goods/upload}" method="post" enctype="multipart/form-data">
+                                <input name="goodsId" th:value="${goods.goodsId}" style="display: none"/>
+                                <div class="file-box">
+                                    <input type="file" class="file-btn" name="goodsImg"/>
+                                </div></br>
+                                <button type="submit" class="layui-btn">上传图片</button>
+
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </main>
+    </div>
+</div>
+<!--
+<div class="text-center">
+    <a th:href="@{/goods/toaddGoods}"><button type="button" class="btn btn-danger">添加菜品</button></a>
+</div>
+<div class="container">
+    <div style="height: 120px;"></div>
+    <table class="table" bgcolor="#f0f8ff">
+        <tr>
+            <th>序号</th>
+            <th>餐品图片</th>
+            <th>餐品名称</th>
+            <th>餐品价格</th>
+        </tr>
+        <tr th:each="goods, status : ${goodsList}">
+            <td th:text="${status.count}"></td>
+            <td>
+                    <span th:if="${goods.goodsImg eq null or goods.goodsImg eq ''}">
+                        <img th:src="@{/static/upImg/wsc.jpg}" />
+                    </span>
+                    <span th:unless="${goods.goodsImg eq null}">
+                        <img width="100px" height="100px" th:src="@{'/static/upImg/' + ${goods.goodsImg}}" />
+                    </span>
+            </td>
+            <td th:text="${goods.goodsName}"></td>
+            <td th:text="${goods.goodsPrice}">元</td>
+            <td>
+                <div style="text-align: right">
+                    <a th:href="@{/goods/toupdateGoods(goodsId=${goods.goodsId})}"><button type="button" class="btn btn-success">修改</button></a>
+
+                    <span th:if="${goods.goodsNum eq 1}">
+                        <a th:href="@{/goods/emptyGoods(goodsId=${goods.goodsId})}"><button type="button" class="btn btn-warning">售空</button></a>
+                    </span>
+                    <span th:if="${goods.goodsNum eq 0}">
+                        <a th:href="@{/goods/recoverGoods(goodsId=${goods.goodsId})}"><button type="button" class="btn btn-primary">恢复购买</button></a>
+                    </span></br>
+
+                    <form th:action="@{/goods/upload}" method="post" enctype="multipart/form-data">
+                        <input name="goodsId" th:value="${goods.goodsId}" style="display: none"/>
+                        <div class="file-box">
+                            <input type="file" class="file-btn" name="goodsImg"/>
+                        </div>
+                       &lt;!&ndash; <input type="submit" value="上传">&ndash;&gt;
+                        <button type="submit" class="layui-btn">上传图片</button>
+
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+-->
+<script th:src="@{/static/js/layui.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+<script th:src="@{/static/js/dashboard.js}"></script>
+</body>
+</html>

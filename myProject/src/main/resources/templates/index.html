@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>餐品列表页</title>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
+</head>
+<body>
+<!--<div class="container">
+    <div style="height: 120px;"></div>
+    <table class="table table-striped">
+        <tr>
+            <th>序号</th>
+            <th>餐品图片</th>
+            <th>餐品名称</th>
+            <th>餐品价格</th>
+            <th>餐品销量</th>
+        </tr>
+        <tr th:each="goods, status : ${goodsList}">
+            <td th:text="${status.count}"></td>
+            <td>
+                    <span th:if="${goods.goodsImg eq null or goods.goodsImg eq ''}">
+                        <img th:src="@{/static/upImg/wsc.jpg}" />
+                    </span>
+                <span th:unless="${goods.goodsImg eq null}">
+                        <img width="100px" height="100px" th:src="@{'/static/upImg/' + ${goods.goodsImg}}" />
+                    </span>
+            </td>
+            <td th:text="${goods.goodsName}"></td>
+            <td th:text="${goods.goodsPrice}"></td>
+            <td th:text="${goods.goodsNum}"></td>
+        </tr>
+    </table>
+</div>-->
+<a th:href="@{/user/toregister}">注册</a>
+<a th:href="@{/user/tologin}">登录</a>
+<a th:href="@{/goods/showPage/1}">进行选购</a>
+</body>
+</html>
+
